@@ -4,19 +4,25 @@
   if(isset($_POST['submitLogin'])){
       $nama=$_POST['name'];
       $password=md5($_POST['password']);
-      echo "$nama";
-      echo "$password";
-      $data=$db->query("SELECT * FROM member WHERE nama==$nama AND password==$password");
-      echo 'test';
-      while($value=$data->fetch_object()){
-          echo $value->nama;
+      $query="SELECT * FROM member where nama='$nama' AND password='$password'";
+      $data=$db->query($query);
+      // $value=$data->fetch_object();
+      // if($value->password == $password){
+      //   $_SESSION['status']="success";
+      //   echo "login berhasil";
+      // }else{
+      //   $_SESSION['status']="failed";
+      //   echo "login gagal";
+      // }
+      if($data->num_rows){
+           $_SESSION['status']="success";
+           $value=$data->fetch_object();
+           $_SESSION['userid']=$value->id;
+           header("Location:home.php");
       }
-      if(true){
-        $_SESSION['status']="success";
-        echo "login berhasil";
-      }else{
-        $_SESSION['status']="failed";
-        echo "login gagal";
+      else{
+          session_destroy();
+          header("Location:home.php");
       }
   }
  ?>
