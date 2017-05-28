@@ -8,10 +8,8 @@
     $nohp = $_POST['nohp'];
     // $foto = $_POST['picture'];
     if($db->query("INSERT INTO member (nama,password,email,tgllahir,nohp) VALUES ('$nama','$password', '$email','$tanggal','$nohp')")){
-      echo 'Berhasil';
     }else{
-      echo 'Gagal';
     }
-    // header('Location: formLoginUser.php');
+    header('Location: home.php');
   }
  ?>
